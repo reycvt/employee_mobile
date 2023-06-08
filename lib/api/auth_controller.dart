@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:employee_mobile/pages/homeScreen.dart';
+import 'package:employee_mobile/pages/menuScreen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
@@ -16,5 +18,7 @@ class AuthController extends GetxController {
       },
     );
     print(response.body);
+    if (response.statusCode != 200) return;
+    Get.to(() => MenuScreen());
   }
 }

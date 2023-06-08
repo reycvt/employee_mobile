@@ -91,11 +91,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         print(userC.text);
                         print(passwordC.text);
                         await authC.login(userC.text, passwordC.text);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MenuScreen()),
-                        );
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const MenuScreen()),
+                        // );
                       }
                     },
                     style: ButtonStyle(
