@@ -1,5 +1,8 @@
+import 'package:employee_mobile/api/user_controller.dart';
+import 'package:employee_mobile/model/data_user.dart';
 import 'package:employee_mobile/pages/loginScreen.dart';
 import 'package:employee_mobile/pages/profileScreen.dart';
+import 'package:employee_mobile/repository/auth_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -13,6 +16,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<User_data> listData = [];
+  Repository user_data = Repository();
+  getData() async {
+    listData = await user_data.getData();
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfileScreen()),
+                      ),
                       child: const Text(
                         "Settings",
                         style: TextStyle(fontSize: 16, color: Colors.white),
@@ -75,21 +94,38 @@ class _HomeScreenState extends State<HomeScreen> {
                   "SuperAdmin",
                   style: TextStyle(fontSize: 20),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircleAvatar(
-                        radius: 70,
-                        backgroundColor: Color.fromARGB(255, 238, 238, 238),
-                      )
+                    children: [
+                      // CircleAvatar(
+                      //   radius: 70,
+                      //   backgroundColor: Color.fromARGB(255, 238, 238, 238),
+                      // )
                     ],
                   ),
+                  //  ListView.separated(itemBuilder: (context,index){
+                  //     return Container(child: Text(listData[index].name),);
+                  //   }, separatorBuilder: (context,index){
+
+                  //   return  const Divider();
+                  //   },
+                  //    itemCount: listData.length),
                 )
               ],
             ),
-          )
+          ),
+          // Container(
+          //   child: ListView.separated(
+          //       itemBuilder: (context, index) {
+          //         return Container(child: Text(listData[index].name));
+          //       },
+          //       separatorBuilder: (context, index) {
+          //         return Divider();
+          //       },
+          //       itemCount: listData.length),
+          // )
         ],
       ),
     );

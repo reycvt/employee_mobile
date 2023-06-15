@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:employee_mobile/api/auth_controller.dart';
 import 'package:employee_mobile/pages/homeScreen.dart';
 import 'package:employee_mobile/pages/menuScreen.dart';

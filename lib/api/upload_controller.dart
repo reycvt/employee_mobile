@@ -12,7 +12,7 @@ class UploadController extends GetxController {
   // var data = {"email": "admin@admin.com", "password": "password"};
   // Future upload(String email, password) async {
   //   var response = await http.post(
-  //     Uri.parse("http://192.168.1.10:8080/api/login"),
+  //     Uri.parse("http://192.168.1.80:8080/api/login"),
   //     body: jsonEncode({"email": email, "password": password}),
   //     headers: <String, String>{
   //       'Content-Type': 'application/json; charset=UTF-8',
@@ -25,7 +25,7 @@ class UploadController extends GetxController {
   Future<void> uploadFile(File file, String filename) async {
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://192.168.1.10:8080/api/upload'),
+      Uri.parse('http://192.168.2.101:8080/api/upload'),
     );
 
     // Tambahkan file ke permintaan multipart

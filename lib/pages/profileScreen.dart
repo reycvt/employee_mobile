@@ -1,7 +1,12 @@
+import 'package:employee_mobile/api/update_controller.dart';
+import 'package:employee_mobile/pages/homeScreen.dart';
+import 'package:employee_mobile/pages/loginScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,47 +16,62 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    getUser();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Login")),
+      appBar: AppBar(
+        title: Text('Update User'),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.lock_rounded,
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: 'Name'),
             ),
-            label: "Encrypt",
-            backgroundColor: Color.fromARGB(255, 241, 241, 241),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Dashboard',
-            backgroundColor: Colors.green,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lock_open),
-            label: 'Decrypt',
-            backgroundColor: Colors.purple,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 0, 170, 91),
-        onTap: _onItemTapped,
+            TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'Email'),
+            ),
+            TextFormField(
+              controller: passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
+              obscureText: true,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                updateUser(
+                  nameController.text,
+                  emailController.text,
+                  passwordController.text,
+                );
+              },
+              child: Text('Update'),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void getUser() async {
+    // Panggil fungsi untuk mendapatkan data pengguna dari API
+    // dan kemudian set nilai awal pada form
+    var user = await getUserData();
+
+    setState(() {
+      nameController.text = user?['name'];
+      emailController.text = user?['email'];
+    });
   }
 }
